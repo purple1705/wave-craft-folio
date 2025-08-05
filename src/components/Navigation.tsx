@@ -29,7 +29,7 @@ const Navigation = () => {
 
   return (
     <nav 
-      className="fixed bottom-0 left-0 right-0 z-50 bg-background/10 backdrop-blur-xl border-t border-border/20 shadow-2xl"
+      className="fixed bottom-0 left-2 right-2 md:left-4 md:right-4 z-50 bg-background/10 backdrop-blur-xl border border-border/20 shadow-2xl rounded-t-2xl md:rounded-2xl mb-2 md:mb-4"
     >
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -74,7 +74,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute bottom-16 left-0 right-0 bg-background/10 backdrop-blur-xl border-t border-border/20 shadow-2xl">
+          <div className="md:hidden absolute bottom-16 left-0 right-0 bg-background/10 backdrop-blur-xl border border-border/20 shadow-2xl rounded-t-2xl mx-2">
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
                 <button

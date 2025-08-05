@@ -8,7 +8,7 @@ import ScrollAnimation from "@/components/ScrollAnimations";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background dark overflow-x-hidden">
+    <div className="min-h-screen bg-background dark overflow-x-hidden pb-20 md:pb-24">
       <Navigation />
       
       <ScrollAnimation>

@@ -35,7 +35,7 @@ const About = () => {
               animationType={index % 2 === 0 ? 'tilt' : 'float'}
               intensity={1.2}
             >
-              <Card className="h-full border-border/50 bg-card/50 backdrop-blur-sm">
+              <Card className="h-full border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">

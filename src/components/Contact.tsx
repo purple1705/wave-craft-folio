@@ -78,7 +78,7 @@ const Contact = () => {
                     animationType="float"
                     intensity={1.1}
                   >
-                    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                    <Card className="border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl">
                       <CardContent className="p-4">
                         <a 
                           href={info.action}
@@ -105,7 +105,7 @@ const Contact = () => {
           {/* Contact Form */}
           <ScrollReveal direction="right" delay={300}>
             <InteractiveCard animationType="tilt" intensity={1.2}>
-              <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl">
                 <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">

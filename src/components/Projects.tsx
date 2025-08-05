@@ -59,7 +59,7 @@ const Projects = () => {
               animationType={index === 0 ? 'tilt' : index === 1 ? 'float' : 'scale'}
               intensity={1.3}
             >
-              <Card className="group overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm h-full">
+              <Card className="group overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm h-full rounded-2xl">
                 <div className="relative overflow-hidden">
                   <img 
                     src={project.image} 
