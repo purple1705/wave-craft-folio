@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import ScrollReveal from "@/components/animations/ScrollReveal";
+import InteractiveCard from "@/components/animations/InteractiveCard";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -48,105 +50,114 @@ const Contact = () => {
   return (
     <section id="contact" className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <ScrollReveal direction="up" className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
             Get In Touch
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
-              <p className="text-muted-foreground mb-8">
-                I'm always excited to take on new challenges and collaborate on innovative projects. 
-                Whether you have a specific project in mind or just want to chat about technology, feel free to reach out!
-              </p>
-            </div>
+          <ScrollReveal direction="left" delay={200}>
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
+                <p className="text-muted-foreground mb-8">
+                  I'm always excited to take on new challenges and collaborate on innovative projects. 
+                  Whether you have a specific project in mind or just want to chat about technology, feel free to reach out!
+                </p>
+              </div>
 
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => (
-                <Card 
-                  key={info.title}
-                  className="group hover:shadow-card-3d transition-all duration-300 border-border/50 bg-card/50 backdrop-blur-sm"
-                >
-                  <CardContent className="p-4">
-                    <a 
-                      href={info.action}
-                      className="flex items-center gap-4 group-hover:text-primary transition-colors"
-                    >
-                      <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{info.title}</h4>
-                        <p className="text-muted-foreground group-hover:text-inherit transition-colors">
-                          {info.details}
-                        </p>
-                      </div>
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
+              <div className="space-y-4">
+                {contactInfo.map((info, index) => (
+                  <InteractiveCard 
+                    key={info.title}
+                    animationType="float"
+                    intensity={1.1}
+                  >
+                    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                      <CardContent className="p-4">
+                        <a 
+                          href={info.action}
+                          className="flex items-center gap-4 group-hover:text-primary transition-colors"
+                        >
+                          <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                            {info.icon}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold">{info.title}</h4>
+                            <p className="text-muted-foreground group-hover:text-inherit transition-colors">
+                              {info.details}
+                            </p>
+                          </div>
+                        </a>
+                      </CardContent>
+                    </Card>
+                  </InteractiveCard>
+                ))}
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Contact Form */}
-          <Card className="border-border/50 bg-card/50 backdrop-blur-sm hover:shadow-card-3d transition-all duration-300">
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input 
-                    id="name" 
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your full name"
-                    className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input 
-                    id="email" 
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="your.email@example.com"
-                    className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea 
-                    id="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell me about your project..."
-                    className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary min-h-[120px] resize-none"
-                    required
-                  />
-                </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-primary hover:shadow-3d transition-all duration-300 transform hover:scale-105"
-                  size="lg"
-                >
-                  <Send className="h-4 w-4 mr-2" />
-                  Send Message
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          <ScrollReveal direction="right" delay={300}>
+            <InteractiveCard animationType="tilt" intensity={1.2}>
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                <CardContent className="p-8">
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input 
+                        id="name" 
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your full name"
+                        className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input 
+                        id="email" 
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your.email@example.com"
+                        className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Message</Label>
+                      <Textarea 
+                        id="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Tell me about your project..."
+                        className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary min-h-[120px] resize-none"
+                        required
+                      />
+                    </div>
+                    
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-gradient-primary hover:shadow-3d transition-all duration-300 transform hover:scale-105"
+                      size="lg"
+                    >
+                      <Send className="h-4 w-4 mr-2" />
+                      Send Message
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </InteractiveCard>
+          </ScrollReveal>
         </div>
       </div>
     </section>
