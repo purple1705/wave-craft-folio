@@ -98,3 +98,189 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Custom animations for enhanced card effects */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    to {
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Enhanced card hover effects */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.25, 0.25, 0, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Project card specific effects */
+  .project-card-hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.25, 0, 1);
+  }
+
+  .project-card-hover:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Enhanced gradient effects */
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    padding: 1px;
+    border-radius: 1rem;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--card));
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  /* Floating animation for project elements */
+  .animate-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  /* Particle effect */
+  .particle {
+    position: absolute;
+    background: hsl(var(--primary) / 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Profile photo effects */
+  .profile-photo-container {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .profile-photo-container::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--primary-glow)), hsl(var(--primary)));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .profile-photo-container:hover::before {
+    opacity: 1;
+    animation: rotate 3s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Floating animation for badges */
+  .floating-badge {
+    animation: float-badge 4s ease-in-out infinite;
+  }
+
+  @keyframes float-badge {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(5deg);
+    }
+  }
+
+  /* Photo shimmer effect */
+  .photo-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}

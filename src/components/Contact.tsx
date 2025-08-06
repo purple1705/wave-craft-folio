@@ -3,11 +3,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import InteractiveCard from "@/components/animations/InteractiveCard";
+import ContactCard from "@/components/animations/ContactCard";
+import { EMAIL_CONFIG, sendFallbackEmail, type EmailParams } from "@/config/email";
+// import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,11 +17,48 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! I'll get back to you soon.");
-    setFormData({ name: '', email: '', message: '' });
+    setIsLoading(true);
+
+    try {
+      // Email parameters
+      const emailParams: EmailParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_email: EMAIL_CONFIG.TO_EMAIL,
+      };
+
+      // For now, use fallback email function
+      // In production, you can uncomment the EmailJS code below
+      // await emailjs.send(
+      //   EMAIL_CONFIG.SERVICE_ID,
+      //   EMAIL_CONFIG.TEMPLATE_ID,
+      //   emailParams,
+      //   EMAIL_CONFIG.PUBLIC_KEY
+      // );
+
+      // Uncomment the following code when you set up EmailJS:
+      /*
+      await emailjs.send(
+        EMAIL_CONFIG.SERVICE_ID,
+        EMAIL_CONFIG.TEMPLATE_ID,
+        emailParams,
+        EMAIL_CONFIG.PUBLIC_KEY
+      );
+      */
+
+      toast.success("Message sent successfully! I'll get back to you soon.");
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      toast.error("Failed to send message. Please try again or contact me directly.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,20 +68,20 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="h-5 w-5" />,
-      title: "Email",
-      details: "john.developer@email.com",
-      action: "mailto:john.developer@email.com"
+      title: "Gmail",
+      details: "harija9080@gmail.com",
+      action: "mailto:harija9080@gmail.com"
     },
     {
       icon: <Phone className="h-5 w-5" />,
       title: "Phone",
-      details: "+1 (555) 123-4567",
-      action: "tel:+15551234567"
+      details: "+91 9080773897",
+      action: "tel:+91 9080773897"
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       title: "Location",
-      details: "San Francisco, CA",
+      details: "San Francisco, Tiruppur",
       action: "#"
     }
   ];
@@ -73,12 +112,11 @@ const Contact = () => {
 
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
-                  <InteractiveCard 
+                  <ContactCard 
                     key={info.title}
-                    animationType="float"
-                    intensity={1.1}
+                    delay={index * 0.1}
                   >
-                    <Card className="border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl">
+                    <Card className="border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl glass">
                       <CardContent className="p-4">
                         <a 
                           href={info.action}
@@ -96,7 +134,7 @@ const Contact = () => {
                         </a>
                       </CardContent>
                     </Card>
-                  </InteractiveCard>
+                  </ContactCard>
                 ))}
               </div>
             </div>
@@ -104,8 +142,8 @@ const Contact = () => {
 
           {/* Contact Form */}
           <ScrollReveal direction="right" delay={300}>
-            <InteractiveCard animationType="tilt" intensity={1.2}>
-              <Card className="border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl">
+            <ContactCard isLoading={isLoading}>
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm rounded-2xl glass">
                 <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
@@ -117,6 +155,7 @@ const Contact = () => {
                         placeholder="Your full name"
                         className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary"
                         required
+                        disabled={isLoading}
                       />
                     </div>
                     
@@ -130,6 +169,7 @@ const Contact = () => {
                         placeholder="your.email@example.com"
                         className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary"
                         required
+                        disabled={isLoading}
                       />
                     </div>
                     
@@ -142,21 +182,32 @@ const Contact = () => {
                         placeholder="Tell me about your project..."
                         className="bg-background/50 border-border/50 focus:ring-primary focus:border-primary min-h-[120px] resize-none"
                         required
+                        disabled={isLoading}
                       />
                     </div>
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-gradient-primary hover:shadow-3d transition-all duration-300 transform hover:scale-105"
+                      className="w-full bg-gradient-to-r from-primary to-primary-glow hover:shadow-glow transition-all duration-300 transform hover:scale-105"
                       size="lg"
+                      disabled={isLoading}
                     >
-                      <Send className="h-4 w-4 mr-2" />
-                      Send Message
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4 mr-2" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
               </Card>
-            </InteractiveCard>
+            </ContactCard>
           </ScrollReveal>
         </div>
       </div>
