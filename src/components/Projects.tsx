@@ -2,9 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink, Eye } from "lucide-react";
+import { motion } from "framer-motion";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import InteractiveCard from "@/components/animations/InteractiveCard";
-import TimelineAnimation from "@/components/animations/TimelineAnimation";
+import ProjectCard from "@/components/animations/ProjectCard";
+import ProjectTimeline from "@/components/animations/ProjectTimeline";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
@@ -52,85 +53,112 @@ const Projects = () => {
           </p>
         </ScrollReveal>
 
-        <TimelineAnimation stagger={200} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <ProjectTimeline staggerDelay={0.2} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <InteractiveCard 
+            <ProjectCard 
               key={project.id}
-              animationType={index === 0 ? 'tilt' : index === 1 ? 'float' : 'scale'}
-              intensity={1.3}
+              delay={index * 0.1}
+              index={index}
             >
-              <Card className="group overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm h-full rounded-2xl">
+              <Card className="group overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm h-full rounded-2xl glass shadow-xl hover:shadow-2xl transition-all duration-500">
                 <div className="relative overflow-hidden">
-                  <img 
+                  <motion.img 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-48 object-cover"
+                    whileHover={{ 
+                      scale: 1.1,
+                      transition: { duration: 0.6, ease: "easeOut" }
+                    }}
                   />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <Button size="sm" variant="secondary" className="shadow-lg">
-                      <Github className="h-4 w-4 mr-2" />
-                      Code
-                    </Button>
-                    <Button size="sm" className="bg-primary hover:bg-primary-glow shadow-lg">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Live Demo
-                    </Button>
-                  </div>
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  >
+                    <div className="flex gap-3">
+                      <Button size="sm" variant="secondary" className="shadow-lg backdrop-blur-sm">
+                        <Github className="h-4 w-4 mr-2" />
+                        Code
+                      </Button>
+                      <Button size="sm" className="bg-primary hover:bg-primary-glow shadow-lg backdrop-blur-sm">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Live Demo
+                      </Button>
+                    </div>
+                  </motion.div>
                 </div>
                 
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  <motion.h3 
+                    className="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     {project.title}
-                  </h3>
+                  </motion.h3>
                   <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
                     {project.description}
                   </p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
-                      <Badge 
-                        key={tech} 
-                        variant="outline" 
-                        className="text-xs hover:bg-primary hover:text-primary-foreground transition-colors"
+                      <motion.div
+                        key={tech}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.2 }}
                       >
-                        {tech}
-                      </Badge>
+                        <Badge 
+                          variant="outline" 
+                          className="text-xs hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
+                        >
+                          {tech}
+                        </Badge>
+                      </motion.div>
                     ))}
                   </div>
                   
                   <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="flex-1 hover:shadow-glow transition-all duration-300"
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      Code
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      className="flex-1 bg-gradient-primary hover:shadow-glow transition-all duration-300"
-                    >
-                      <Eye className="h-4 w-4 mr-2" />
-                      View
-                    </Button>
+                    <motion.div className="flex-1" whileHover={{ scale: 1.02 }}>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="w-full hover:shadow-glow transition-all duration-300"
+                      >
+                        <Github className="h-4 w-4 mr-2" />
+                        Code
+                      </Button>
+                    </motion.div>
+                    <motion.div className="flex-1" whileHover={{ scale: 1.02 }}>
+                      <Button 
+                        size="sm" 
+                        className="w-full bg-gradient-to-r from-primary to-primary-glow hover:shadow-glow transition-all duration-300"
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        View
+                      </Button>
+                    </motion.div>
                   </div>
                 </CardContent>
               </Card>
-            </InteractiveCard>
+            </ProjectCard>
           ))}
-        </TimelineAnimation>
+        </ProjectTimeline>
 
         <ScrollReveal direction="scale" delay={400} className="text-center mt-12">
-          <InteractiveCard animationType="glow" intensity={2}>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
             <Button 
               size="lg" 
               variant="outline" 
-              className="transition-all duration-300"
+              className="transition-all duration-300 hover:shadow-glow text-white"
             >
               View All Projects
             </Button>
-          </InteractiveCard>
+          </motion.div>
         </ScrollReveal>
       </div>
     </section>

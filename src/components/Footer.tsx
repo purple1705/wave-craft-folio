@@ -19,7 +19,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center space-y-6">
           {/* Logo and tagline */}
-          <div>
+          {/* <div>
             <h3 
               className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent cursor-pointer"
               onClick={scrollToTop}
@@ -29,7 +29,7 @@ const Footer = () => {
             <p className="text-muted-foreground mt-2">
               Crafting digital experiences with passion and precision
             </p>
-          </div>
+          </div> */}
 
           {/* Social Links */}
           <div className="flex justify-center gap-4">
@@ -49,13 +49,13 @@ const Footer = () => {
           </div>
 
           {/* Copyright */}
-          <div className="pt-6 border-t border-border/50">
+          {/* <div className="pt-6 border-t border-border/50">
             <p className="text-muted-foreground flex items-center justify-center gap-2">
               © {currentYear} Made with 
               <Heart className="h-4 w-4 text-red-500 animate-pulse" /> 
               by John Developer
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
